@@ -1,0 +1,65 @@
+body {
+  overflow-x: hidden;
+}
+
+.navbar {
+  position: relative;
+  background-color: black;
+}
+
+.navbar-nav ul {
+  margin-bottom: 0;
+  list-style: none;
+  display: flex;
+}
+
+.navbar-nav ul li {
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.main-page {
+  margin:20px;
+  min-height: 81vh;
+}
+
+.title{
+  font-size: 24px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  margin:10px;
+}
+.title-text{
+  font-size: 24px;
+  font-weight: 600;
+  margin:10px;
+}
+
+#logo {
+  width: 60px;
+}
+
+.footer {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: black;
+  text-align: center;
+  color: white;
+}
+
+.MuiPaper-root{
+  width: 80%!important;
+}
+
+.company-title{
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px;
+  cursor: pointer;
+}
