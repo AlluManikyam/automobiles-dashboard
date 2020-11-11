@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
 import {
   Row,
@@ -10,12 +10,16 @@ import {
   CardSubtitle,
   Button,
 } from "reactstrap";
+import { UserContext } from "../../context/UserContext";
+import { VehicleListContext } from "../../context/VehicleListContext";
 let customers = require("../../constants/customers.json");
 
 const Dashboard = (props) => {
+  const { setUser } = useContext(UserContext);
+  const { setVehicles } = useContext(VehicleListContext);
   const gotoVehicleDetails = (personName, vehicles) => {
-    localStorage.setItem("personName", personName);
-    localStorage.setItem("vehicles", JSON.stringify(vehicles));
+    setUser(personName);
+    setVehicles(vehicles);
     props.history.push("/vehicle-details");
   };
   return (
