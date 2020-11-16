@@ -35,11 +35,11 @@ const Dashboard = (props) => {
               <Col sm="4">
                 <Card>
                   <CardBody>
-                    <CardTitle tag="h5">{personName}</CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                    <CardTitle tag="h5">Name : {personName}</CardTitle>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted"> Gender : 
                       {person.gender}
                     </CardSubtitle>
-                    <CardText>{person.age}</CardText>
+                    <CardText>Age : {person.age}</CardText>
                     <Button
                       color="info"
                       onClick={() =>

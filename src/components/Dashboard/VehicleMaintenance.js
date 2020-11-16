@@ -18,10 +18,10 @@ const VehicleMaintenance = () => {
             <Card>
               <CardBody>
                 <CardTitle tag="h5">
-                  {maintenance.vehicle.insurance.company}
+                 Company :  {maintenance.vehicle.insurance.company}
                 </CardTitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  {maintenance.vehicle.insurance.policy_num}
+                  Policy Number : {maintenance.vehicle.insurance.policy_num}
                 </CardSubtitle>
               </CardBody>
             </Card>
@@ -34,16 +34,19 @@ const VehicleMaintenance = () => {
           maintenance.maintenance.length &&
           maintenance.maintenance.map((mt) => {
             return (
+             
               <Col sm="4">
                 <Card>
                   <CardBody>
-                    <CardTitle tag="h5">{mt.date}</CardTitle>
+                    <CardTitle tag="h5">Date : {mt.date}</CardTitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
-                      {mt.desc}
+                     Description :  {mt.desc}
                     </CardSubtitle>
                   </CardBody>
                 </Card>
               </Col>
+             
+              
             );
           })}
       </Row>

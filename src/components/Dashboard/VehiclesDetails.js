@@ -11,6 +11,8 @@ import {
 } from "reactstrap";
 import { VehicleListContext } from "../../context/VehicleListContext";
 import { MaintenanceContext } from "../../context/MaintenanceContext";
+// import {toTitleCase} from "./App.js"
+
 
 const VehicleDetails = (props) => {
   const { vehicles } = useContext(VehicleListContext);
@@ -20,6 +22,18 @@ const VehicleDetails = (props) => {
     props.history.push("/vehicle-maintenance");
   };
 
+
+  
+  const toTitleCase = (phrase) => {
+    return phrase
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
+ 
+  
   return (
     <div className="main-page">
       <div className="title">AutoMobiles</div>
@@ -29,10 +43,10 @@ const VehicleDetails = (props) => {
               return (
                 <Col sm="4">
                   <Card>
-                    <CardBody>
-                      <CardTitle tag="h5">{vehicle.type}</CardTitle>
+                    <CardBody >
+                      <CardTitle tag="h5"  >{toTitleCase(vehicle.type)}</CardTitle>
                       <CardSubtitle tag="h6" className="mb-2 text-muted">
-                        {vehicle.model}
+                        Model : {vehicle.model}
                       </CardSubtitle>
                       <Button
                         color="info"
