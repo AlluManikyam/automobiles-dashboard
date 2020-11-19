@@ -18,11 +18,11 @@ import {
 import DatePicker from "react-date-picker";
 import swal from "sweetalert";
 import moment from "moment";
-import { MaintenanceContext } from "../../context/MaintenanceContext";
+import { AutoMobilesContext } from "../../context/AutoMobilesContext";
 let _ = require("lodash");
 
 const VehicleMaintenance = () => {
-  const { maintenance, setMaintenance } = useContext(MaintenanceContext);
+  const { automobiles, setAutomobiles } = useContext(AutoMobilesContext);
   const [modal, setModal] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState({});
   const [date, setDate] = useState(new Date());
@@ -60,12 +60,14 @@ const VehicleMaintenance = () => {
       dangerMode: true,
     }).then((isConfirm) => {
       if (isConfirm) {
-        maintenance.maintenance = maintenance.maintenance.filter((mt) => {
+        automobiles.maintenance = automobiles.maintenance.filter((mt) => {
           return mt.date !== record.date && mt.desc !== record.desc;
         });
-        setMaintenance({
-          vehicle: maintenance.vehicle,
-          maintenance: maintenance.maintenance,
+        setAutomobiles({
+          user: automobiles.user,
+          vehicles: automobiles.vehicles,
+          selectedVehicle: automobiles.selectedVehicle,
+          maintenance: automobiles.maintenance,
         });
         swal("", "Your record deleted successfully", "success");
       }
@@ -80,25 +82,28 @@ const VehicleMaintenance = () => {
         ? "Record updated successfully"
         : "You record has been created successfully";
     if (modalType === "edit") {
-      let recordIndex = _.findIndex(maintenance.maintenance, selectedRecord);
+      let recordIndex = _.findIndex(
+        automobiles.maintenance,
+        selectedRecord
+      );
       if (recordIndex > -1) {
-        console.log("maintenance.maintenance", maintenance.maintenance);
-        maintenance.maintenance[recordIndex].date = moment(date).format(
+        automobiles.maintenance[recordIndex].date = moment(date).format(
           "MM-DD-YYYY"
         );
-        maintenance.maintenance[recordIndex].desc = description;
+        automobiles.maintenance[recordIndex].desc = description;
       }
     } else {
-      console.log("maintenance--submit", maintenance);
-      maintenance.maintenance.push({
+      automobiles.maintenance.push({
         date: moment(date).format("MM-DD-YYYY"),
         desc: description,
       });
     }
 
-    setMaintenance({
-      vehicle: maintenance.vehicle,
-      maintenance: maintenance.maintenance,
+    setAutomobiles({
+      user: automobiles.user,
+      vehicles: automobiles.vehicles,
+      selectedVehicle: automobiles.selectedVehicle,
+      maintenance: automobiles.maintenance,
     });
     swal("", msg, "success");
     setModal(!modal);
@@ -107,8 +112,9 @@ const VehicleMaintenance = () => {
   return (
     <div className="main-page">
       <div className="title my-2">
-        {maintenance.vehicle && Object.keys(maintenance.vehicle).length
-          ? maintenance.vehicle.model
+        {automobiles.selectedVehicle &&
+        Object.keys(automobiles.selectedVehicle).length
+          ? automobiles.selectedVehicle.model
           : null}
       </div>
       <div className="d-flex justify-content-end">
@@ -118,25 +124,27 @@ const VehicleMaintenance = () => {
       </div>
       <div className="title-text my-2">Insurance</div>
       <Row>
-        {maintenance.vehicle && Object.keys(maintenance.vehicle).length && (
-          <Col sm="4">
-            <Card>
-              <CardBody>
-                <CardTitle tag="h5">
-                  Company : {maintenance.vehicle.insurance.company}
-                </CardTitle>
-                <CardSubtitle tag="h6" className="mb-2 text-muted">
-                  Policy Number : {maintenance.vehicle.insurance.policy_num}
-                </CardSubtitle>
-              </CardBody>
-            </Card>
-          </Col>
-        )}
+        {automobiles.selectedVehicle &&
+          Object.keys(automobiles.selectedVehicle).length && (
+            <Col sm="4">
+              <Card>
+                <CardBody>
+                  <CardTitle tag="h5">
+                    Company : {automobiles.selectedVehicle.insurance.company}
+                  </CardTitle>
+                  <CardSubtitle tag="h6" className="mb-2 text-muted">
+                    Policy Number :{" "}
+                    {automobiles.selectedVehicle.insurance.policy_num}
+                  </CardSubtitle>
+                </CardBody>
+              </Card>
+            </Col>
+          )}
       </Row>
       <div className="title-text my-2">Maintenance</div>
       <Row>
-        {maintenance.maintenance && maintenance.maintenance.length
-          ? maintenance.maintenance.map((mt) => {
+        {automobiles.maintenance && automobiles.maintenance.length
+          ? automobiles.maintenance.map((mt) => {
               return (
                 <Col sm="3">
                   <Card>

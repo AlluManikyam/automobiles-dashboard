@@ -10,16 +10,18 @@ import {
   CardSubtitle,
   Button,
 } from "reactstrap";
-import { UserContext } from "../../context/UserContext";
-import { VehicleListContext } from "../../context/VehicleListContext";
-let customers = require("../../constants/customers.json");
+import { AutoMobilesContext } from "../../context/AutoMobilesContext";
+let customers = require("../../constants/data/customers.json");
 
 const Dashboard = (props) => {
-  const { setUser } = useContext(UserContext);
-  const { setVehicles } = useContext(VehicleListContext);
+  const { automobiles, setAutomobiles } = useContext(AutoMobilesContext);
   const gotoVehicleDetails = (personName, vehicles) => {
-    setUser(personName);
-    setVehicles(vehicles);
+    setAutomobiles({
+      user: personName,
+      vehicles: vehicles,
+      selectedVehicle: automobiles.selectedVehicle,
+      maintenance: automobiles.maintenance,
+    });
     props.history.push("/vehicle-details");
   };
   return (
@@ -36,8 +38,9 @@ const Dashboard = (props) => {
                 <Card>
                   <CardBody>
                     <CardTitle tag="h5">Name : {personName}</CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted"> Gender : 
-                      {person.gender}
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                      {" "}
+                      Gender :{person.gender}
                     </CardSubtitle>
                     <CardText>Age : {person.age}</CardText>
                     <Button

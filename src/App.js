@@ -4,25 +4,19 @@ import DashboardPage from "./containers/DashboardPage";
 import VehicleDetailsPage from "./containers/VehicleDetailsPage";
 import VehicleMaintenancePage from "./containers/VehicleMaintenancePage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { UserContext } from "./context/UserContext";
-import { VehicleListContext } from "./context/VehicleListContext";
-import { MaintenanceContext } from "./context/MaintenanceContext";
+import { AutoMobilesContext } from "./context/AutoMobilesContext";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [vehicles, setVehicles] = useState([]);
-  const [ maintenance, setMaintenance] = useState({});
-
-  const userInfo = useMemo(() => ({ user, setUser }), [user, setUser]);
-  const vehiclesList = useMemo(() => ({ vehicles, setVehicles }), [vehicles, setVehicles]);
-  const vehicleMaintenance = useMemo(() => ({ maintenance, setMaintenance }), [ maintenance, setMaintenance]);
+  const [automobiles, setAutomobiles] = useState({});
+  const automobilesData = useMemo(() => ({ automobiles, setAutomobiles }), [
+    automobiles,
+    setAutomobiles,
+  ]);
 
   return (
     <Router>
       <Switch>
-        <UserContext.Provider value={userInfo}>
-        <VehicleListContext.Provider  value={vehiclesList}>
-        <MaintenanceContext.Provider  value={vehicleMaintenance}>
+        <AutoMobilesContext.Provider value={automobilesData}>
           <Route exact path="/" component={DashboardPage} />
           <Route path="/dashboard" component={DashboardPage} />
           <Route path="/vehicle-details" component={VehicleDetailsPage} />
@@ -30,9 +24,7 @@ function App() {
             path="/vehicle-maintenance"
             component={VehicleMaintenancePage}
           />
-        </MaintenanceContext.Provider>
-        </VehicleListContext.Provider>
-        </UserContext.Provider>
+        </AutoMobilesContext.Provider>
       </Switch>
     </Router>
   );

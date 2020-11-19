@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import { VehicleListContext } from "../../context/VehicleListContext";
+import { AutoMobilesContext } from "../../context/AutoMobilesContext";
 
 const Navbar = (props) => {
-  const { user} = useContext(UserContext);
-  const { vehicles } = useContext(VehicleListContext);
-  console.log("vehicles--list",vehicles);
+  const { automobiles} = useContext(AutoMobilesContext);
   return (
     <nav className="navbar navbar-expand-lg">
       <button
@@ -26,7 +23,7 @@ const Navbar = (props) => {
         </div>
         <div className="navbar-nav ml-auto">
           <ul>
-            <li>{user ? user : ""}</li>
+            <li>{automobiles.user ? automobiles.user : ""}</li>
           </ul>
         </div>
       </div>
